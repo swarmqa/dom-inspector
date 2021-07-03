@@ -5,9 +5,9 @@ import logger from './logger.js';
 
 class DomInspector {
 	constructor(options = {}) {
-		this._doc = window.document;
+		this._doc = options.window ? options.window.document : window.document;
 
-		this.root = options.root ? (isDOM(options.root) ? options.root : $(options.root)) : $('body');
+		this.root = options.root ? (isDOM(options.root) ? options.root : $(options.root)) : this._doc.querySelector('body');
 
 		if (isNull(this.root)) {
 			logger.warn('Root element is null. Auto select body as root');
